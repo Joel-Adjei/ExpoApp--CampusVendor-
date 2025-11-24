@@ -106,7 +106,7 @@ const Login = () => {
               
             </Text>
             <Link
-                href={"/"}
+                href={"/screens/Signup"}
 
               >
                 <Text className="text-blue-600 font-medium hover:underline">signup</Text>

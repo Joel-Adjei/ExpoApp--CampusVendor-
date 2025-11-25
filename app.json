@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "expo-app",
-    "slug": "expo-app",
+    "name": "Campus Vendor",
+    "slug": "campus-vendor",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/cv-logo.png",
     "scheme": "expoapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

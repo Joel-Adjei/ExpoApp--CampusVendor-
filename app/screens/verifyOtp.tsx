@@ -1,23 +1,30 @@
 import useAuthStore from "@/store/authStore";
 import useOtpStore from "@/store/useOtp";
 import { useRouter } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
+import AppTitle from "../components/ui/AppTitle";
 
 const VerifyOtp = () => {
   const { updateLogin } = useAuthStore();
   const router = useRouter();
-  const { email = "", role, password, clearOtpDetails, otpToken } = useOtpStore();
+  const {
+    email = "",
+    role,
+    password,
+    clearOtpDetails,
+    otpToken,
+  } = useOtpStore();
   const [otp, setOtp] = useState<string>("");
   const [timeLeft, setTimeLeft] = useState<number>(300);
   const [canResend, setCanResend] = useState(false);
@@ -58,7 +65,6 @@ const VerifyOtp = () => {
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
-
 
   const handleVerifyOtp = async () => {
     const otpString = otp;
@@ -102,9 +108,15 @@ const VerifyOtp = () => {
       case "verifying":
         return (
           <View style={styles.centered}>
-            <ActivityIndicator size="large" color="#1D4ED8" style={{ marginBottom: 12 }} />
+            <ActivityIndicator
+              size="large"
+              color="#1D4ED8"
+              style={{ marginBottom: 12 }}
+            />
             <Text style={styles.title}>Verifying OTP...</Text>
-            <Text style={styles.sub}>Please wait while we verify your code</Text>
+            <Text style={styles.sub}>
+              Please wait while we verify your code
+            </Text>
           </View>
         );
 
@@ -112,7 +124,9 @@ const VerifyOtp = () => {
         return (
           <View style={styles.centered}>
             <Text style={styles.emoji}>✅</Text>
-            <Text style={[styles.title, { color: "#15803D" }]}>Verification Successful!</Text>
+            <Text style={[styles.title, { color: "#15803D" }]}>
+              Verification Successful!
+            </Text>
             <Text style={styles.sub}>Redirecting you to your dashboard...</Text>
           </View>
         );
@@ -121,7 +135,9 @@ const VerifyOtp = () => {
         return (
           <View style={styles.centered}>
             <Text style={styles.emoji}>❌</Text>
-            <Text style={[styles.title, { color: "#DC2626" }]}>Verification Failed</Text>
+            <Text style={[styles.title, { color: "#DC2626" }]}>
+              Verification Failed
+            </Text>
             <Text style={styles.sub}>The OTP you entered is incorrect</Text>
           </View>
         );
@@ -130,20 +146,22 @@ const VerifyOtp = () => {
         return (
           <View style={styles.container}>
             <View style={styles.otpRow}>
-                <TextInput
-                  style={styles.otpInput}
-                  keyboardType="number-pad"
-                  maxLength={6} // allow paste; logic handles splitting
-                  value={otp}
-                  onChangeText={(text) => setOtp(text)}
-                  returnKeyType="done"
-                  textContentType="oneTimeCode"
-                  autoFocus={true}
-                />
+              <TextInput
+                style={styles.otpInput}
+                keyboardType="number-pad"
+                maxLength={6} // allow paste; logic handles splitting
+                value={otp}
+                onChangeText={(text) => setOtp(text)}
+                returnKeyType="done"
+                textContentType="oneTimeCode"
+                autoFocus={true}
+              />
             </View>
 
             <View style={styles.timerRow}>
-              <Text style={styles.timerText}>Code expires in {formatTime(timeLeft)}</Text>
+              <Text style={styles.timerText}>
+                Code expires in {formatTime(timeLeft)}
+              </Text>
             </View>
 
             <TouchableOpacity
@@ -160,14 +178,18 @@ const VerifyOtp = () => {
 
             <View style={styles.resendRow}>
               {canResend ? (
-                <TouchableOpacity onPress={handleResendOtp} disabled={isResending}>
+                <TouchableOpacity
+                  onPress={handleResendOtp}
+                  disabled={isResending}
+                >
                   <Text style={styles.resendText}>
                     {isResending ? "Sending..." : "Resend OTP"}
                   </Text>
                 </TouchableOpacity>
               ) : (
                 <Text style={styles.resendHint}>
-                  Didn't receive the code? You can resend in {formatTime(timeLeft)}
+                  Didn't receive the code? You can resend in{" "}
+                  {formatTime(timeLeft)}
                 </Text>
               )}
             </View>
@@ -182,7 +204,7 @@ const VerifyOtp = () => {
       style={styles.screen}
     >
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Verify OTP</Text>
+        <AppTitle fontSize="text-3xl" title="Verify OTP" />
         <Text style={styles.headerSubtitle}>We've sent a 6-digit code to</Text>
         <Text style={styles.emailText}>{maskedEmail}</Text>
       </View>
@@ -194,7 +216,9 @@ const VerifyOtp = () => {
           <View style={styles.overlayCard}>
             <ActivityIndicator size="large" color="#F59E0B" />
             <Text style={styles.overlayTitle}>Logging In...</Text>
-            <Text style={styles.overlaySubtitle}>Please wait while we log you in</Text>
+            <Text style={styles.overlaySubtitle}>
+              Please wait while we log you in
+            </Text>
           </View>
         </View>
       )}
@@ -207,11 +231,11 @@ export default VerifyOtp;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#E6F0FF",
+    backgroundColor: "#F1F5F9",
     padding: 20,
   },
   header: {
-    marginTop: 12,
+    marginTop: 70,
     alignItems: "center",
   },
   headerTitle: {
@@ -242,7 +266,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   otpInput: {
-    width: 48,
+    width: 200,
     height: 56,
     borderWidth: 1,
     borderColor: "#CBD5E1",

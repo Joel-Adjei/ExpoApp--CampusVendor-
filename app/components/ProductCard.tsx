@@ -126,7 +126,7 @@ const ProductCard: React.FC<Props> = ({
       onPress={handlePress}
     >
       <View
-        className={`rounded-2xl overflow-hidden w-42 bg-white border border-gray-300 shadow-lg`}
+        className={`h-68 rounded-2xl overflow-hidden w-42 bg-white border border-gray-300 shadow-md`}
       >
         {/* Decorative circles */}
         <View
